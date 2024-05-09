@@ -1,0 +1,19 @@
+!pip install -q -U google-generativeai
+import google.generativeai as genai
+from google.colab import userdata
+api_key = userdata.get('SECRET_KEY')
+genai.configure(api_key=api_key)
+
+model = genai.GenerativeModel('gemini-pro')
+
+print('Gerador de Tabelas')
+num_col = input('Quantas colunas?') # testar limite 5 colonas
+num_lin = input('Quantas linhas?') # testar limite 10 linhas
+tema = input('Qual o tema?')
+detal = input('Deseja detalhar o tema?')
+
+print('Gerando...')
+print('----------------------------------------------------')
+
+response = model.generate_content(f"Assunto: {tema}. Detalhes: {detal}. Formate uma tabela. Número de Linhas: {num_lin} .Número de colunas: {num_col} . Pense na melhor forma de organizar os dados e crie as linhas e colunas da tabela.")
+print(response.text)
